@@ -1,4 +1,3 @@
-//async auto
 var async = require('async');
 async.auto({
     bookname:function(callback){
@@ -11,20 +10,21 @@ async.auto({
           callback(null,connected)
         }
         else{
-            callback(null,'error connecting to  db')
+            callback('error connecting to  db',null)
         }
     },
-    checkindb:['bookname','database',function(callback){
-        console.log('checking in db')
-        var found=true;
+    checkindb:['bookname','database',function(results,callback){
+        //console.log('results', results);
+        var found =true;
         if(found){
             callback(null,found)
           }
           else{
-              callback(null,'error  finding book in  db')
+              callback('error  finding book in  db',null)
           }
-      }],
+      }]
 }, function (err,results) {
     console.log('error = ',err);
     console.log('results = ',results);
+});
 });
